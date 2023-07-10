@@ -1,4 +1,9 @@
 import "@styles/globals.css";
+/** call navigation bar in here
+ *  to reuse it throughout all our pages.
+ */
+import Nav from "@components/Nav";
+import Provider from "@components/Provider";
 
 export const metadata = {
   title: "Promptopia",
@@ -13,7 +18,11 @@ const RootLayout = ({ children }) => {
         <div className="main">
           <div className="gradient"></div>
         </div>
-        <main className="app">{children}</main>
+
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );
