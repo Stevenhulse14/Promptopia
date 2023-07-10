@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSessions, getProviders } from "next-auth/react";
-import { get } from "mongoose";
 
 const Nav = () => {
   const UserLoggedIn = true;
@@ -45,7 +44,7 @@ const Nav = () => {
 
             <Link href="/profile">
               <Image
-                src={session?.user.image}
+                src="/assets/images/logo.svg"
                 width={37}
                 height={37}
                 className="rounded-full"
