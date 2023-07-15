@@ -13,7 +13,7 @@ const CreatePrompt = () => {
     prompt: "",
     tag: "",
   });
-  //console.log(post.prompt, post.tag, session?.user.id);
+
   const createPrompt = async (e) => {
     e.preventDefault();
     setSubmitting(true);

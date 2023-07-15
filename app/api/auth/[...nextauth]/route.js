@@ -33,7 +33,7 @@ const handler = NextAuth({
     async signIn({ profile }) {
       try {
         await connectToDatabase();
-
+        console.log(profile, "signin");
         //check if user exists if not create user
         const userExists = await User.findOne({ email: profile.email });
         //if not, create a nerw user
@@ -41,7 +41,7 @@ const handler = NextAuth({
           await User.create({
             email: profile.email,
             username: profile.name.replace(" ", "").toLowerCase(),
-            image: profile.image,
+            image: profile?.picture,
           });
         }
         return true;
