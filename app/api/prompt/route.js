@@ -6,11 +6,20 @@ export const GET = async (req) => {
     await connectToDatabase();
     const prompts = await Prompt.find({}).populate("creator");
     return new Response(JSON.stringify(prompts), { status: 200 });
+  } catch (error) {}
+};
+
+export const PATCH = async (req) => {
+  try {
+    await connectToDatabase();
   } catch (error) {
-    return new Response("failed to fetch prompt data", { status: 500 });
+    return new Response("failed to update prompt data", { status: 500 });
   }
 };
 
-export const PATCH = async (req) => {};
-
-export const DELETE = async (req) => {};
+export const DELETE = async (req) => {
+  try {
+  } catch (error) {
+    return new Response("failed to delete prompt", { status: 500 });
+  }
+};

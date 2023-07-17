@@ -3,18 +3,23 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+
 // we will later be able to delete and edit tag so include that in the props
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(post);
+  const [copied, setCopied] = useState(false);
   return (
     <div className="prompt_card">
       <div className=" flex justify-between items-start gap-5">
         <div className="flex flex-1 justify-start items-center gap-3 cursor-pointer">
           {" "}
           <Image
-            src={post.creator.image}
+            src={
+              post.creator.image
+                ? post.creator.image
+                : "/assets/images/logo.svg"
+            }
             alt="user_image"
             width={40}
             height={40}
@@ -29,7 +34,37 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             </p>
           </div>
         </div>
+        <div
+          className="copy_btn"
+          onClick={() => {
+            () => {
+              setCopied(post.prompt);
+              navigator.clipboard.writeText(post.prompt);
+              setTimeout(() => {
+                setCopied("");
+              }, 500);
+            };
+          }}
+        >
+          <Image
+            width={12}
+            height={12}
+            alt="copy icon"
+            src={
+              copied === post.prompt
+                ? "/assets/icons/tick.svg"
+                : "assets/icons/copy.svg"
+            }
+          />
+        </div>
       </div>
+      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+      <p
+        className="font-inter text-sm blue_gradient cusror-pointer"
+        onClick={() => handleTagClick && handleTagClick(post.tag)}
+      >
+        {post.tag}
+      </p>
     </div>
   );
 };
