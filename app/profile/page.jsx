@@ -27,7 +27,7 @@ const myProfile = () => {
 
     if (hasConfirmed) {
       try {
-        await fetch(`/api/prompt/${+post._id}`, {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
           method: "DELETE",
         });
 
@@ -40,7 +40,7 @@ const myProfile = () => {
   };
 
   const handleEdit = async (post) => {
-    router.push(`/update-prompt?post._id=${post._id}`);
+    router.push(`/update-prompt?id=${post._id}`);
   };
 
   return (

@@ -5,15 +5,14 @@ import Prompt from "@models/prompt";
 export const GET = async (request, { params }) => {
   try {
     await connectToDatabase();
-    const prompt = await Prompt.find(params.id).populate("creator");
+    console.log(params);
+    const prompt = await Prompt.findById(params.id).populate("creator");
 
-    if (!prompt) {
-      return new Response("prompt not found", { status: 404 });
-    }
+    if (!prompt) return new Response("Prompt Not Found", { status: 404 });
 
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
-    return new Response("failed to get prompts", { status: 500 });
+    return new Response("Internal Server Error 1", { status: 500 });
   }
 };
 
@@ -40,18 +39,12 @@ export const PATCH = async (request, { params }) => {
   }
 };
 
-export const DELETE = async (req) => {
+export const DELETE = async (request, { params }) => {
   try {
     await connectToDatabase();
-    const prompt = await Prompt.findById(req.params.id);
+    await Prompt.findByIdAndRemove(params.id);
 
-    if (!prompt) {
-      return new Response("prompt not found", { status: 404 });
-    }
-
-    await prompt.remove();
-
-    return new Response(JSON.stringify(prompt), { status: 200 });
+    return new Response(JSON.stringify("Prompt deleted "), { status: 200 });
   } catch (error) {
     return new Response("failed to delete prompt", { status: 500 });
   }
